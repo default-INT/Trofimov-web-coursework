@@ -1,0 +1,90 @@
+﻿@model IEnumerable<RepairServiceCenterASP.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullNameCustumer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GuaranteeMark)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GuaranteePeriod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RepairedModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeOfFault)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServicedStore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReturnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullNameCustumer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GuaranteeMark)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GuaranteePeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RepairedModel.RepairedModelId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfFault.TypeOfFaultId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServicedStore.ServicedStoreId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
