@@ -35,3 +35,39 @@ body {
         display: none;
     }
 }
+
+.header-submenu {
+    position: absolute;
+    background: #313131;
+    width: 220px;
+    padding-left: 0px;
+    transform: scaleY(0);
+    transform-origin: 0 0;
+    transition: .5s ease-in-out;
+    list-style-type: none;
+}
+
+li:hover .header-submenu {
+    transform: scaleY(1);
+}
+
+.header-submenu li {
+    padding-top: 18px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    text-align: justify;
+    border-bottom: 1px gray solid;
+}
+
+    .header-submenu li:hover {
+        background: gray;
+    }
+
+.header-submenu a {
+    text-decoration: none;
+    color: #9d9d9d;
+}
+
+    .header-submenu a:hover {
+        color: white;
+    }

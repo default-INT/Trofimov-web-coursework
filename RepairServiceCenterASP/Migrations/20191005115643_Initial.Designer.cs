@@ -9,7 +9,7 @@ using RepairServiceCenterASP.Data;
 
 namespace RepairServiceCenterASP.Migrations
 {
-    [DbContext(typeof(RepairServiceCenterConetex))]
+    [DbContext(typeof(RepairServiceCenterContext))]
     [Migration("20191005115643_Initial")]
     partial class Initial
     {

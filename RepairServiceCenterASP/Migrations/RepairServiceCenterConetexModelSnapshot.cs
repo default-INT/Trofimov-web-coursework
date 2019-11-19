@@ -8,8 +8,8 @@ using RepairServiceCenterASP.Data;
 
 namespace RepairServiceCenterASP.Migrations
 {
-    [DbContext(typeof(RepairServiceCenterConetex))]
-    partial class RepairServiceCenterConetexModelSnapshot : ModelSnapshot
+    [DbContext(typeof(RepairServiceCenterContext))]
+    partial class RepairServiceCenterContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

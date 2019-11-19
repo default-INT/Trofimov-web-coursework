@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RepairServiceCenterASP.Data;
+using RepairServiceCenterASP.Middleware;
+using RepairServiceCenterASP.Models;
+using RepairServiceCenterASP.Services;
 
 namespace RepairServiceCenterASP
 {
@@ -27,10 +30,11 @@ namespace RepairServiceCenterASP
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<RepairServiceCenterConetex>(options => options.UseSqlServer(connection));
+            services.AddDbContext<RepairServiceCenterContext>(options => options.UseSqlServer(connection));
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddTransient<ICachingModel<RepairedModel>, RepeiredModelService>();
             services.AddMvc();
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +43,7 @@ namespace RepairServiceCenterASP
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //app.UseBrowserLink();
             }
             else
             {
@@ -47,6 +52,9 @@ namespace RepairServiceCenterASP
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
+
+            app.UseDbInitializer();
 
             app.UseMvc(routes =>
             {

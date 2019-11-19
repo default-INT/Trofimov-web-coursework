@@ -22,4 +22,33 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\Employees\Index.cshtml" />
+    <None Include="Views\Home\About.cshtml" />
+    <None Include="Views\Home\Contact.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="Views\RepairedModels\Create.cshtml" />
+    <None Include="Views\RepairedModels\Delete.cshtml" />
+    <None Include="Views\RepairedModels\Details.cshtml" />
+    <None Include="Views\RepairedModels\Edit.cshtml" />
+    <None Include="Views\RepairedModels\Index.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_CookieConsentPartial.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\SpareParts\Create.cshtml" />
+    <None Include="Views\SpareParts\Delete.cshtml" />
+    <None Include="Views\SpareParts\Details.cshtml" />
+    <None Include="Views\SpareParts\Edit.cshtml" />
+    <None Include="Views\SpareParts\Index.cshtml" />
+    <None Include="Views\TypeOfFaults\Create.cshtml" />
+    <None Include="Views\TypeOfFaults\Delete.cshtml" />
+    <None Include="Views\TypeOfFaults\Details.cshtml" />
+    <None Include="Views\TypeOfFaults\Edit.cshtml" />
+    <None Include="Views\TypeOfFaults\Index.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+
 </Project>
