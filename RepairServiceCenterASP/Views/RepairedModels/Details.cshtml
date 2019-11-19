@@ -1,0 +1,48 @@
+﻿@model RepairServiceCenterASP.Models.RepairedModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RepairedModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Manufacturer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Manufacturer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TechSpecification)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TechSpecification)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Features)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Features)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.RepairedModelId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

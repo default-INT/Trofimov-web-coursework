@@ -1,0 +1,79 @@
+﻿@model RepairServiceCenterASP.Models.Order
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOrder)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateOrder)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReturnDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FullNameCustumer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullNameCustumer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GuaranteeMark)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GuaranteeMark)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GuaranteePeriod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GuaranteePeriod)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RepairedModel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RepairedModel.RepairedModelId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOfFault)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfFault.TypeOfFaultId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ServicedStore)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ServicedStore.ServicedStoreId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.EmployeeId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

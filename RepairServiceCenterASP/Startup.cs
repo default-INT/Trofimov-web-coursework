@@ -5,12 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RepairServiceCenterASP.Data;
+using RepairServiceCenterASP.Middleware;
+using RepairServiceCenterASP.Models;
+using RepairServiceCenterASP.Services;
 
 namespace RepairServiceCenterASP
 {
@@ -27,10 +31,19 @@ namespace RepairServiceCenterASP
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<RepairServiceCenterConetex>(options => options.UseSqlServer(connection));
-            services.AddMvc();
-
+            services.AddDbContext<RepairServiceCenterContext>(options => options.UseSqlServer(connection));
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddTransient<ICachingModel<RepairedModel>, RepeiredModelService>();
             
+            services.AddDbContext<AccountContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AccountContextConnection")));
+
+            // добавление сервисов Idenity
+            services.AddIdentity<AccountUser, IdentityRole>()
+                .AddEntityFrameworkStores<AccountContext>();
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,14 +52,18 @@ namespace RepairServiceCenterASP
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
+            app.UseAuthentication();
+            app.UseDbInitializer();
 
             app.UseMvc(routes =>
             {

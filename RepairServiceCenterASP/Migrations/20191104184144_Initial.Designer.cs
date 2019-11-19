@@ -9,8 +9,8 @@ using RepairServiceCenterASP.Data;
 
 namespace RepairServiceCenterASP.Migrations
 {
-    [DbContext(typeof(RepairServiceCenterConetex))]
-    [Migration("20191005115643_Initial")]
+    [DbContext(typeof(RepairServiceCenterContext))]
+    [Migration("20191104184144_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

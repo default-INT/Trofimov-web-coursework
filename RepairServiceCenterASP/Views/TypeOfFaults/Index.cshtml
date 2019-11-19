@@ -1,0 +1,60 @@
+﻿@model IEnumerable<RepairServiceCenterASP.Models.TypeOfFault>
+
+@{
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <h1>Типы повреждений</h1>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MethodRepair)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RepairedModel.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MethodRepair)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RepairedModel.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TypeOfFaultId">Редактировать</a> |
+                <a asp-action="Details" asp-route-id="@item.TypeOfFaultId">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.TypeOfFaultId">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

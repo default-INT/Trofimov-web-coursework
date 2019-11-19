@@ -1,0 +1,59 @@
+﻿@model IEnumerable<RepairServiceCenterASP.Models.RepairedModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Ремонтируемое оборудывание</h2>
+
+<p>
+    <a asp-action="Create">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Manufacturer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TechSpecification)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Features)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manufacturer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TechSpecification)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Features)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RepairedModelId">Редактировать</a> |
+                <a asp-action="Details" asp-route-id="@item.RepairedModelId">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.RepairedModelId">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

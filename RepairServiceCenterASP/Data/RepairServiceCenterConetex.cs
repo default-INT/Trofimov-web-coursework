@@ -9,9 +9,9 @@ using RepairServiceCenterASP.Models;
 
 namespace RepairServiceCenterASP.Data
 {
-    public class RepairServiceCenterConetex : DbContext
+    public class RepairServiceCenterContext : DbContext
     {
-        public RepairServiceCenterConetex(DbContextOptions options) : base(options)
+        public RepairServiceCenterContext(DbContextOptions options) : base(options)
         {
         }
         

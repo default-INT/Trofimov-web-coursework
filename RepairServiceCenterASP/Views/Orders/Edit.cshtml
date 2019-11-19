@@ -1,0 +1,80 @@
+﻿@model RepairServiceCenterASP.Models.Order
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>Order</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OrderId" />
+            <div class="form-group">
+                <label asp-for="DateOrder" class="control-label"></label>
+                <input asp-for="DateOrder" class="form-control" />
+                <span asp-validation-for="DateOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReturnDate" class="control-label"></label>
+                <input asp-for="ReturnDate" class="form-control" />
+                <span asp-validation-for="ReturnDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullNameCustumer" class="control-label"></label>
+                <input asp-for="FullNameCustumer" class="form-control" />
+                <span asp-validation-for="FullNameCustumer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RepairedModelId" class="control-label"></label>
+                <select asp-for="RepairedModelId" class="form-control" asp-items="ViewBag.RepairedModelId"></select>
+                <span asp-validation-for="RepairedModelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeOfFaultId" class="control-label"></label>
+                <select asp-for="TypeOfFaultId" class="form-control" asp-items="ViewBag.TypeOfFaultId"></select>
+                <span asp-validation-for="TypeOfFaultId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServicedStoreId" class="control-label"></label>
+                <select asp-for="ServicedStoreId" class="form-control" asp-items="ViewBag.ServicedStoreId"></select>
+                <span asp-validation-for="ServicedStoreId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GuaranteeMark" class="control-label"></label>
+                <input asp-for="GuaranteeMark" class="form-control" />
+                <span asp-validation-for="GuaranteeMark" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GuaranteePeriod" class="control-label"></label>
+                <input asp-for="GuaranteePeriod" class="form-control" />
+                <span asp-validation-for="GuaranteePeriod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeId" class="control-label"></label>
+                <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
