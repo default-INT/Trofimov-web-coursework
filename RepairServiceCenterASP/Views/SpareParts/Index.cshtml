@@ -54,9 +54,9 @@
                 @Html.DisplayFor(modelItem => item.TypeOfFault.Name)
             </td>
             <td>
-                <a asp-action="Редактировать" asp-route-id="@item.SparePartId">Редактировать</a> |
-                <a asp-action="Детали" asp-route-id="@item.SparePartId">Детали</a> |
-                <a asp-action="Удалить" asp-route-id="@item.SparePartId">Удалить</a>
+                <a asp-action="Edit" asp-route-id="@item.SparePartId">Редактировать</a> |
+                <a asp-action="Details" asp-route-id="@item.SparePartId">Детали</a> |
+                <a asp-action="Delete" asp-route-id="@item.SparePartId">Удалить</a>
             </td>
         </tr>
 }

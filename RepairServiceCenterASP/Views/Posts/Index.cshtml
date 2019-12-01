@@ -1,17 +1,12 @@
 ﻿@model IEnumerable<RepairServiceCenterASP.Models.Post>
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<h2>Index</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -45,5 +40,3 @@
 }
     </tbody>
 </table>
-</body>
-</html>

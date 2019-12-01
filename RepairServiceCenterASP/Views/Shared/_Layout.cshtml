@@ -32,15 +32,21 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Главное</a></li>
                     <li>
-                        <a href="" onclick="openSubMenu()">Таблицы</a>
+                        <a href="">Сервисы</a>
                         <ul class="header-submenu">
+                            <li><a asp-area="" asp-controller="Orders" asp-action="Index">Список заказов</a></li>
                             <li><a asp-area="" asp-controller="RepairedModels" asp-action="Index">Ремонтируемое оборудование</a></li>
                             <li><a asp-area="" asp-controller="SpareParts" asp-action="Index">Запчасти</a></li>
                             <li><a asp-area="" asp-controller="TypeOfFaults" asp-action="Index">Типы повреждений</a></li>
                         </ul>
                     </li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">О сайте</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Контакты</a></li>
+                    <li>
+                        <a href="">Отдел кадров</a>
+                        <ul class="header-submenu">
+                            <li><a asp-area="" asp-controller="Employees">Список сотрудников</a></li>
+                            <li><a asp-area="" asp-controller="Posts">Список должностей</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RepairServiceCenterASP.Data;
 using RepairServiceCenterASP.Models;
+using RepairServiceCenterASP.ViewModels;
 
 namespace RepairServiceCenterASP.Controllers
 {
@@ -20,10 +21,25 @@ namespace RepairServiceCenterASP.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var repairServiceCenterConetex = _context.Orders.Include(o => o.Employee).Include(o => o.RepairedModel).Include(o => o.ServicedStore).Include(o => o.TypeOfFault);
-            return View(await repairServiceCenterConetex.ToListAsync());
+            int pageSize = 20;
+
+            var source = _context.Orders.Include(o => o.Employee)
+                                                            .Include(o => o.RepairedModel)
+                                                            .Include(o => o.ServicedStore)
+                                                            .Include(o => o.TypeOfFault);
+
+            int count = await source.CountAsync();
+            var items = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            OrdersViewModels ordersViewModels = new OrdersViewModels()
+            {
+                Orders = items,
+                PageViewModel = pageViewModel
+            };
+            return View(ordersViewModels);
         }
 
         // GET: Orders/Details/5

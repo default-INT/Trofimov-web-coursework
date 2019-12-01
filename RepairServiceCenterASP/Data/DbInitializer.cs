@@ -17,11 +17,245 @@ namespace RepairServiceCenterASP.Data
             int repairedModelsNumber = 35;
             int sparePartsNumber = 200;
             int typeOfFaultsNumber = 35;
+            int serviceStoreNumber = 40;
+            int countOrders = 300;
 
             RepairedModelsGenerate(repairedModelsNumber, ref db);
             TypeOfFaultGeneration(typeOfFaultsNumber, repairedModelsNumber, ref db);
             SparePartsGeneration(sparePartsNumber, repairedModelsNumber, typeOfFaultsNumber, ref db);
+            ServiceStoreGeneration(serviceStoreNumber, ref db);
+            PostGenerate(ref db);
+            EmployeeGenerate(ref db);
+            OrdersGenerate(countOrders, ref db);
+        }
 
+        private static void OrdersGenerate(int count, ref RepairServiceCenterContext db)
+        {
+            if (db.Orders.Any())
+            {
+                return;
+            }
+
+            int countTypeOfFault = db.TypeOfFaults.Count();
+            int countServicedStore = db.ServicedStores.Count();
+            int countEmployee = db.Employees.Count();
+            int countRepairedModel = db.RepairedModels.Count();
+
+            DateTime dateOrder;
+            DateTime returnDate;
+            string fullNameCust;
+            int repairedModelId;
+            int typeOfFaultId;
+            int serviceStoreId;
+            bool guaranteeMark;
+            int guaranteePeriod;
+            int employeeId;
+            double price;
+
+            string[] namesVoc = { "Жмайлик А.В.", "Сетко А.И.", "Семёнов С.А.", "Давыдчик А.Е.", "Пискун Е.А.",
+                                  "Дракула В.А.", "Ястребов А.В.", "Степаненко Ю.А.", "Башаримов Ю.И.", "Каркозов В.В." };
+
+            for (int i = 0; i < count; i++)
+            {
+                dateOrder = DateTime.Now.AddTicks(-randObj.Next());
+                returnDate = dateOrder.AddDays(randObj.Next(1, 40));
+                fullNameCust = namesVoc[randObj.Next(namesVoc.GetLength(0))];
+                repairedModelId = randObj.Next(1, countRepairedModel - 1);
+                typeOfFaultId = randObj.Next(1, countTypeOfFault - 1);
+                serviceStoreId = randObj.Next(1, countServicedStore - 1);
+                employeeId = randObj.Next(1, countEmployee - 1);
+                guaranteeMark = randObj.Next(1000) > 500 ? true : false;
+                guaranteePeriod = randObj.Next(120);
+
+                var typeOfFaults = db.TypeOfFaults.Where(t => t.TypeOfFaultId == typeOfFaultId)
+                                                   .FirstOrDefault();
+                price = (double)typeOfFaults.WorkPrice * 2 * randObj.NextDouble(); ;
+
+                db.Orders.Add(new Order()
+                {
+                    DateOrder = dateOrder,
+                    ReturnDate = returnDate,
+                    FullNameCustumer = fullNameCust,
+                    RepairedModelId = repairedModelId,
+                    TypeOfFaultId = typeOfFaultId,
+                    ServicedStoreId = serviceStoreId,
+                    GuaranteeMark = guaranteeMark,
+                    GuaranteePeriod = guaranteePeriod,
+                    EmployeeId = employeeId,
+                    Price = price
+                });
+            }
+            db.SaveChanges();
+        }
+
+        private static void PostGenerate(ref RepairServiceCenterContext db)
+        {
+            if (db.Posts.Any())
+            {
+                return;
+            }
+
+            db.Posts.Add(new Post()
+            {
+                Name = "Директор",
+                Money = 5000
+            });
+            db.Posts.Add(new Post()
+            {
+                Name = "Зам. директора",
+                Money = 2500
+            });
+            db.Posts.Add(new Post()
+            {
+                Name = "Прогроммист",
+                Money = 2000
+            });
+            db.Posts.Add(new Post()
+            {
+                Name = "Инженер",
+                Money = 1500
+            });
+            db.Posts.Add(new Post()
+            {
+                Name = "Главный-инженер",
+                Money = 2100
+            });
+            db.Posts.Add(new Post()
+            {
+                Name = "ИТ-директор",
+                Money = 3500
+            });
+            db.Posts.Add(new Post() 
+            {
+                Name = "ИТ-менеджер",
+                Money = 2500
+            });
+            db.Posts.Add(new Post() //9
+            {
+                Name = "Сантехник",
+                Money = 500
+            });
+            db.Posts.Add(new Post() //10
+            {
+                Name = "Уборщик",
+                Money = 300
+            });
+            db.Posts.Add(new Post() //11
+            {
+                Name = "Мед. сестра",
+                Money = 550
+            });
+            db.Posts.Add(new Post() //12
+            {
+                Name = "Продавец",
+                Money = 400
+            });
+            db.SaveChanges();
+        }
+
+        private static void EmployeeGenerate(ref RepairServiceCenterContext db)
+        {
+            if (db.Employees.Any())
+            {
+                return;
+            }
+
+            db.Employees.Add(new Employee()
+            {
+                FullName = "Трофимов Е.В.",
+                Experience = 10,
+                Post = db.Posts.Where(p => p.Name == "Директор")
+                               .FirstOrDefault(),
+            });
+            db.Employees.Add(new Employee()
+            {
+                FullName = "Солодков Е.В.",
+                Experience = 8,
+                Post = db.Posts.Where(p => p.Name == "Программист")
+                               .FirstOrDefault(),
+            });
+            db.Employees.Add(new Employee()
+            {
+                FullName = "Ропот И.В.",
+                Experience = 10,
+                Post = db.Posts.Where(p => p.Name == "Инженер")
+                               .FirstOrDefault(),
+            });
+            db.Employees.Add(new Employee()
+            {
+                FullName = "Липский Д.Ю.",
+                Experience = 10,
+                Post = db.Posts.Where(p => p.Name == "ИТ-менеджер")
+                               .FirstOrDefault(),
+            });
+            db.Employees.Add(new Employee()
+            {
+                FullName = "Межейников А.С.",
+                Experience = 10,
+                Post = db.Posts.Where(p => p.Name == "ИТ-директор")
+                               .FirstOrDefault(),
+            });
+            db.Employees.Add(new Employee()
+            {
+                FullName = "Михайлов А.С.",
+                Experience = 10,
+                Post = db.Posts.Where(p => p.Name == "Главный-инженер")
+                               .FirstOrDefault(),
+            });
+            db.Employees.Add(new Employee()
+            {
+                FullName = "Козаченко М.А.",
+                Experience = 10,
+                Post = db.Posts.Where(p => p.Name == "Уборщик")
+                               .FirstOrDefault(),
+            });
+            db.Employees.Add(new Employee()
+            {
+                FullName = "Главич Д.Ю.",
+                Experience = 10,
+                Post = db.Posts.Where(p => p.Name == "Мед. сестра")
+                               .FirstOrDefault(),
+            });
+            db.Employees.Add(new Employee()
+            {
+                FullName = "Стольный С.В.",
+                Experience = 10,
+                Post = db.Posts.Where(p => p.Name == "Инженер")
+                               .FirstOrDefault(),
+            });
+            db.SaveChanges();
+        }
+
+        private static void ServiceStoreGeneration(int num, ref RepairServiceCenterContext db)
+        {
+            if (db.ServicedStores.Any())
+            {
+                return;
+            }
+
+            string name;
+            string address;
+            string phoneNumber;
+
+            string[] namesVoc = {"PriceRent", "RentalCars", "ServiceTransportOnline", "PhonesOne", "BestSpendTime",
+                                  "БелГосСтах", "SAMSUNG STORE", "Бай-Бак", "Zeon"};
+            string[] addressVoc = {"пер.Заслонова, ", "ул.Гастело, ", "ул.Полесская, ", "пр.Речецкий, ", "ул, Интерноциональная, ",
+                                    "пр.Октября, ", "ул.Бассейная, ", "бул.Юности, " };
+
+            for (int i = 0; i < num; i++)
+            {
+                name = namesVoc[randObj.Next(namesVoc.GetLength(0))] + " " + randObj.Next(0, num + 50);
+                address = addressVoc[randObj.Next(addressVoc.GetLength(0))] + randObj.Next(0, 250);
+                phoneNumber = "+375 (29) " + randObj.Next(100, 999) + "-" + randObj.Next(10, 99) +
+                              "-" + randObj.Next(10, 99);
+                db.ServicedStores.Add(new ServicedStore()
+                {
+                    Name = name,
+                    Address = address,
+                    PhoneNumber = phoneNumber
+                });
+                db.SaveChanges();
+            }
         }
         
         private static void TypeOfFaultGeneration(int num, int rModelsNum, ref RepairServiceCenterContext db)
@@ -45,7 +279,10 @@ namespace RepairServiceCenterASP.Data
                 repairedModelId = randObj.Next(1, rModelsNum - 1);
                 name = namesVoc[randObj.Next(namesVoc.GetLength(0))];
                 methodRepair = methodRepairVoc[randObj.Next(methodRepairVoc.GetLength(0))];
-                workPrice = randObj.NextDouble();
+
+                var repeiredModel = db.RepairedModels.Where(r => r.RepairedModelId == repairedModelId)
+                                                     .FirstOrDefault();
+                workPrice = repairedModelId * 2 * randObj.NextDouble();
 
                 db.TypeOfFaults.Add(new TypeOfFault
                 {
@@ -78,7 +315,7 @@ namespace RepairServiceCenterASP.Data
             for (int i = 0; i < num; i++)
             {
                 name = namesVoc[randObj.Next(namesVoc.GetLength(0))] + i.ToString();
-                price = 1500 * randObj.NextDouble();
+                price = 30 * randObj.NextDouble();
                 function = functionVoc[randObj.Next(functionVoc.GetLength(0))];
                 repairedModelId = randObj.Next(1, rModelsNum - 1);
                 typeOfFaultId = randObj.Next(1, typeNum - 1);

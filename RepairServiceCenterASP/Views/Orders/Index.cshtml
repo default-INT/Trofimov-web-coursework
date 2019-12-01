@@ -1,90 +1,117 @@
-﻿@model IEnumerable<RepairServiceCenterASP.Models.Order>
+﻿@model RepairServiceCenterASP.ViewModels.OrdersViewModels
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Заказы</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Добавить новый заказ</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DateOrder)
+                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().DateOrder)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReturnDate)
+                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().ReturnDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FullNameCustumer)
+                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().FullNameCustumer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GuaranteeMark)
+                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().GuaranteeMark)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GuaranteePeriod)
+                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().GuaranteePeriod)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RepairedModel)
+                Ремонтируемое оборудывание
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TypeOfFault)
+                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().TypeOfFault)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ServicedStore)
+                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().ServicedStore)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Employee)
+                Сотрудник
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOrder)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReturnDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullNameCustumer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GuaranteeMark)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GuaranteePeriod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RepairedModel.RepairedModelId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TypeOfFault.TypeOfFaultId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServicedStore.ServicedStoreId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Orders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullNameCustumer)
+                </td>
+                <td>
+                    @if ((bool)item.GuaranteeMark)
+                    {
+                        <span>Имеется</span>
+                    }
+                    else
+                    {
+                        <span>Отсутствует</span>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GuaranteePeriod)
+                </td>
+                <td>
+                    @Math.Round(item.Price, 2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RepairedModel.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeOfFault.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServicedStore.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.FullName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.OrderId">Ред.</a><br>
+                    <a asp-action="Details" asp-route-id="@item.OrderId">Детали</a><br>
+                    <a asp-action="Delete" asp-route-id="@item.OrderId">Удалить</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-default btn">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-default btn">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
