@@ -48,7 +48,7 @@ namespace RepairServiceCenterASP.Controllers
         // GET: TypeOfFaults/Create
         public IActionResult Create()
         {
-            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "RepairedModelId");
+            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "Name");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace RepairServiceCenterASP.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "RepairedModelId", typeOfFault.RepairedModelId);
+            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "Name", typeOfFault.RepairedModelId);
             return View(typeOfFault);
         }
 
@@ -82,7 +82,7 @@ namespace RepairServiceCenterASP.Controllers
             {
                 return NotFound();
             }
-            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "RepairedModelId", typeOfFault.RepairedModelId);
+            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "Name", typeOfFault.RepairedModelId);
             return View(typeOfFault);
         }
 
@@ -118,7 +118,7 @@ namespace RepairServiceCenterASP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "RepairedModelId", typeOfFault.RepairedModelId);
+            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "Name", typeOfFault.RepairedModelId);
             return View(typeOfFault);
         }
 

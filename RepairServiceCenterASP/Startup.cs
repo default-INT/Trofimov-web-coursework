@@ -29,8 +29,8 @@ namespace RepairServiceCenterASP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<RepairServiceCenterContext>(options => options.UseSqlServer(connection));
+            string connection = Configuration.GetConnectionString("SqlLiteConnection");
+            services.AddDbContext<RepairServiceCenterContext>(options => options.UseSqlite(connection));
             services.AddMemoryCache();
             services.AddSession();
             services.AddTransient<ICachingModel<RepairedModel>, RepeiredModelService>();

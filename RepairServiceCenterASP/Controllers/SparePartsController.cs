@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -49,8 +47,8 @@ namespace RepairServiceCenterASP.Controllers
         // GET: SpareParts/Create
         public IActionResult Create()
         {
-            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "RepairedModelId");
-            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "TypeOfFaultId");
+            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "Name");
+            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "Name");
             return View();
         }
 
@@ -67,8 +65,8 @@ namespace RepairServiceCenterASP.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "RepairedModelId", sparePart.RepairedModelId);
-            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "TypeOfFaultId", sparePart.TypeOfFaultId);
+            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "Name", sparePart.RepairedModelId);
+            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "Name", sparePart.TypeOfFaultId);
             return View(sparePart);
         }
 
@@ -85,8 +83,8 @@ namespace RepairServiceCenterASP.Controllers
             {
                 return NotFound();
             }
-            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "RepairedModelId", sparePart.RepairedModelId);
-            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "TypeOfFaultId", sparePart.TypeOfFaultId);
+            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "Name", sparePart.RepairedModelId);
+            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "Name", sparePart.TypeOfFaultId);
             return View(sparePart);
         }
 
@@ -122,8 +120,8 @@ namespace RepairServiceCenterASP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "RepairedModelId", sparePart.RepairedModelId);
-            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "TypeOfFaultId", sparePart.TypeOfFaultId);
+            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "Name", sparePart.RepairedModelId);
+            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "Name", sparePart.TypeOfFaultId);
             return View(sparePart);
         }
 

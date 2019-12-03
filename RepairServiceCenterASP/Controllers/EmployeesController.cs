@@ -48,7 +48,7 @@ namespace RepairServiceCenterASP.Controllers
         // GET: Employees/Create
         public IActionResult Create()
         {
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId");
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Name");
             return View();
         }
 

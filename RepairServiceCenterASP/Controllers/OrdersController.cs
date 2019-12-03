@@ -67,10 +67,10 @@ namespace RepairServiceCenterASP.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "EmployeeId");
-            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "RepairedModelId");
-            ViewData["ServicedStoreId"] = new SelectList(_context.ServicedStores, "ServicedStoreId", "ServicedStoreId");
-            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "TypeOfFaultId");
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FullName");
+            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "Name");
+            ViewData["ServicedStoreId"] = new SelectList(_context.ServicedStores, "ServicedStoreId", "Name");
+            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "Name");
             return View();
         }
 
@@ -79,7 +79,8 @@ namespace RepairServiceCenterASP.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,DateOrder,ReturnDate,FullNameCustumer,RepairedModelId,TypeOfFaultId,ServicedStoreId,GuaranteeMark,GuaranteePeriod,Price,EmployeeId")] Order order)
+        public async Task<IActionResult> Create([Bind("OrderId,DateOrder,ReturnDate,FullNameCustumer,RepairedModelId," +
+            "TypeOfFaultId,ServicedStoreId,GuaranteeMark,GuaranteePeriod,Price,EmployeeId")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -87,10 +88,10 @@ namespace RepairServiceCenterASP.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "EmployeeId", order.EmployeeId);
-            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "RepairedModelId", order.RepairedModelId);
-            ViewData["ServicedStoreId"] = new SelectList(_context.ServicedStores, "ServicedStoreId", "ServicedStoreId", order.ServicedStoreId);
-            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "TypeOfFaultId", order.TypeOfFaultId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FullName", order.EmployeeId);
+            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "Name", order.RepairedModelId);
+            ViewData["ServicedStoreId"] = new SelectList(_context.ServicedStores, "ServicedStoreId", "Name", order.ServicedStoreId);
+            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "Name", order.TypeOfFaultId);
             return View(order);
         }
 
@@ -107,10 +108,10 @@ namespace RepairServiceCenterASP.Controllers
             {
                 return NotFound();
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "EmployeeId", order.EmployeeId);
-            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "RepairedModelId", order.RepairedModelId);
-            ViewData["ServicedStoreId"] = new SelectList(_context.ServicedStores, "ServicedStoreId", "ServicedStoreId", order.ServicedStoreId);
-            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "TypeOfFaultId", order.TypeOfFaultId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FullName", order.EmployeeId);
+            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "Name", order.RepairedModelId);
+            ViewData["ServicedStoreId"] = new SelectList(_context.ServicedStores, "ServicedStoreId", "Name", order.ServicedStoreId);
+            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "Name", order.TypeOfFaultId);
             return View(order);
         }
 
@@ -119,7 +120,8 @@ namespace RepairServiceCenterASP.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,DateOrder,ReturnDate,FullNameCustumer,RepairedModelId,TypeOfFaultId,ServicedStoreId,GuaranteeMark,GuaranteePeriod,Price,EmployeeId")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,DateOrder,ReturnDate,FullNameCustumer," +
+            "RepairedModelId,TypeOfFaultId,ServicedStoreId,GuaranteeMark,GuaranteePeriod,Price,EmployeeId")] Order order)
         {
             if (id != order.OrderId)
             {
@@ -146,10 +148,10 @@ namespace RepairServiceCenterASP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "EmployeeId", order.EmployeeId);
-            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "RepairedModelId", order.RepairedModelId);
-            ViewData["ServicedStoreId"] = new SelectList(_context.ServicedStores, "ServicedStoreId", "ServicedStoreId", order.ServicedStoreId);
-            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "TypeOfFaultId", order.TypeOfFaultId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FullName", order.EmployeeId);
+            ViewData["RepairedModelId"] = new SelectList(_context.RepairedModels, "RepairedModelId", "Name", order.RepairedModelId);
+            ViewData["ServicedStoreId"] = new SelectList(_context.ServicedStores, "ServicedStoreId", "Name", order.ServicedStoreId);
+            ViewData["TypeOfFaultId"] = new SelectList(_context.TypeOfFaults, "TypeOfFaultId", "Name", order.TypeOfFaultId);
             return View(order);
         }
 
