@@ -59,15 +59,19 @@ li:hover .header-submenu {
     border-bottom: 1px gray solid;
 }
 
-    .header-submenu li:hover {
-        background: gray;
-    }
+.header-submenu li:hover {
+    background: gray;
+}
 
 .header-submenu a {
     text-decoration: none;
     color: #9d9d9d;
 }
 
-    .header-submenu a:hover {
-        color: white;
-    }
+.header-submenu a:hover {
+    color: white;
+}
+
+input[type="date"].form-control, input[type="time"].form-control, input[type="datetime-local"].form-control, input[type="month"].form-control {
+    line-height: normal;
+}

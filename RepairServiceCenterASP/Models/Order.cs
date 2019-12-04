@@ -5,6 +5,20 @@ namespace RepairServiceCenterASP.Models
 {
     public class Order
     {
+        public enum SortState
+        {
+            DateOrderAsc, DateOrderDesc,
+            ReturnDateAsc, ReturnDateDesc,
+            FullNameCustAsc, FullNameCustDesc,
+            RepModelAsc, RepModelDesc,
+            TypeOfFaultAsc, TypeOfFaultDesc,
+            ServiceStoreAsc, ServiceStroeDesc,
+            GuaranteeMarkAsc, GuaranteeMarkDesc,
+            GuaranteePeriodAsc, GuaranteePeriodDesc,
+            PriceAsc, PriceDesc,
+            EmployeeAsc, EmployeeDesc
+        }
+
         [Display(Name = "Код")]
         public int OrderId { get; set; }
         [Display(Name = "Дата заказа")]

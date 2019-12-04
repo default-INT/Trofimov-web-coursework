@@ -10,38 +10,126 @@
 <p>
     <a asp-action="Create">Добавить новый заказ</a>
 </p>
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Дата заказа: </label>
+        <input name="dateOrder" class="form-control" type="date" value="@Model.OrdersFilter.SelectedDateOrder" />
+
+        <label class="control-label">Имя заказчика: </label>
+        @Html.TextBox("fullNameCust", Model.OrdersFilter.InputFullNameCust, htmlAttributes: new { @class = "form-control" })
+
+        <label class="control-label">Сотрудник: </label>
+        @Html.DropDownList("employee", Model.OrdersFilter.Employees as SelectList,
+                htmlAttributes: new { @class = "form-control" })
+
+        <label class="control-label">Гарантия: </label>
+        @Html.CheckBox("guarantee", false, htmlAttributes: new { @class = "form-control"})
+
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().DateOrder)
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.OrdersSort.DateOrderSort"
+                   asp-route-dateOrder="@Model.OrdersFilter.SelectedDateOrder"
+                   asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
+                   asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
+                   asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().DateOrder)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().ReturnDate)
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.OrdersSort.ReturnDateSort"
+                   asp-route-dateOrder="@Model.OrdersFilter.SelectedDateOrder"
+                   asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
+                   asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
+                   asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().ReturnDate)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().FullNameCustumer)
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.OrdersSort.FullNameCustSort"
+                   asp-route-dateOrder="@Model.OrdersFilter.SelectedDateOrder"
+                   asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
+                   asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
+                   asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().FullNameCustumer)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().GuaranteeMark)
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.OrdersSort.GuaranteeMarkSort"
+                   asp-route-dateOrder="@Model.OrdersFilter.SelectedDateOrder"
+                   asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
+                   asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
+                   asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().GuaranteeMark)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().GuaranteePeriod)
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.OrdersSort.GuaranteePeriodSort"
+                   asp-route-dateOrder="@Model.OrdersFilter.SelectedDateOrder"
+                   asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
+                   asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
+                   asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().GuaranteePeriod)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().Price)
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.OrdersSort.PriceSort"
+                   asp-route-dateOrder="@Model.OrdersFilter.SelectedDateOrder"
+                   asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
+                   asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
+                   asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().Price)
+                </a>
             </th>
             <th>
-                Ремонтируемое оборудывание
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.OrdersSort.RepModelSort"
+                   asp-route-dateOrder="@Model.OrdersFilter.SelectedDateOrder"
+                   asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
+                   asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
+                   asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    Ремонтируемое оборудывание
+                </a>
+</th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.OrdersSort.TypeOfFaultSort"
+                   asp-route-dateOrder="@Model.OrdersFilter.SelectedDateOrder"
+                   asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
+                   asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
+                   asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().TypeOfFault)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().TypeOfFault)
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.OrdersSort.ServicedStoreSort"
+                   asp-route-dateOrder="@Model.OrdersFilter.SelectedDateOrder"
+                   asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
+                   asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
+                   asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().ServicedStore)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().ServicedStore)
-            </th>
-            <th>
-                Сотрудник
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.OrdersSort.EmployeeSort"
+                   asp-route-dateOrder="@Model.OrdersFilter.SelectedDateOrder"
+                   asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
+                   asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
+                   asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    Сотрудник
+                </a>
             </th>
             <th></th>
         </tr>
