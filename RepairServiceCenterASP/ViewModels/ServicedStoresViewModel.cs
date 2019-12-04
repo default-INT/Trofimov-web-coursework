@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RepairServiceCenterASP.ViewModels
 {
-    public class OrdersViewModels
+    public class ServicedStoresViewModel
     {
-        public IEnumerable<Order> Orders { get; set; }
+        public IEnumerable<ServicedStore> ServicedStores { get; set; }
         public PageViewModel PageViewModel { get; set; }
     }
 }

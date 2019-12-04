@@ -34,7 +34,7 @@ namespace RepairServiceCenterASP.Controllers
             var items = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
-            OrdersViewModels ordersViewModels = new OrdersViewModels()
+            OrdersViewModel ordersViewModels = new OrdersViewModel()
             {
                 Orders = items,
                 PageViewModel = pageViewModel
