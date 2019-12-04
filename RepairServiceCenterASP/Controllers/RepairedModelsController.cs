@@ -18,7 +18,8 @@ namespace RepairServiceCenterASP.Controllers
         private const string KEY_CACHE = "RepairedModel50";
         private const int PAGE_SIZE = 10;
 
-        public RepairedModelsController(RepairServiceCenterContext context, ICachingModel<RepairedModel> cachingModel)
+        public RepairedModelsController(RepairServiceCenterContext context, 
+                                        ICachingModel<RepairedModel> cachingModel)
         {
             _context = context;
             _cachingModel = cachingModel;
@@ -31,8 +32,6 @@ namespace RepairServiceCenterASP.Controllers
             // Разбиение на страницы
             var count = _cachingModel.ReadAllCache(KEY_CACHE).Count();
             var rModels = _cachingModel.ReadAllCache(KEY_CACHE);
-                                       //.Skip((page - 1) * PAGE_SIZE)
-                                       //.Take(PAGE_SIZE);
 
             return View(rModels);
         }
@@ -55,23 +54,24 @@ namespace RepairServiceCenterASP.Controllers
             return View(repairedModel);
         }
 
-        // GET: RepairedModels/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: RepairedModels/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RepairedModelId,Name,Type,Manufacturer,TechSpecification,Features")] RepairedModel repairedModel)
+        public async Task<IActionResult> Create([Bind("RepairedModelId,Name,Type,Manufacturer," +
+                                                "TechSpecification,Features")] RepairedModel repairedModel)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(repairedModel);
-                await _context.SaveChangesAsync();
+                await Task.Run(() =>
+                {
+                    _context.SaveChangesAsync();
+                    _cachingModel.RefreshCache(KEY_CACHE);
+                });
                 return RedirectToAction(nameof(Index));
             }
             return View(repairedModel);
@@ -84,7 +84,7 @@ namespace RepairServiceCenterASP.Controllers
             {
                 return NotFound();
             }
-
+            
             var repairedModel = await _context.RepairedModels.FindAsync(id);
             if (repairedModel == null)
             {
@@ -93,12 +93,10 @@ namespace RepairServiceCenterASP.Controllers
             return View(repairedModel);
         }
 
-        // POST: RepairedModels/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RepairedModelId,Name,Type,Manufacturer,TechSpecification,Features")] RepairedModel repairedModel)
+        public async Task<IActionResult> Edit(int id, [Bind("RepairedModelId,Name,Type,Manufacturer," +
+                                              "TechSpecification,Features")] RepairedModel repairedModel)
         {
             if (id != repairedModel.RepairedModelId)
             {
@@ -110,7 +108,11 @@ namespace RepairServiceCenterASP.Controllers
                 try
                 {
                     _context.Update(repairedModel);
-                    await _context.SaveChangesAsync();
+                    await Task.Run(() =>
+                    {
+                        _context.SaveChangesAsync();
+                        _cachingModel.RefreshCache(KEY_CACHE);
+                    });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -153,7 +155,11 @@ namespace RepairServiceCenterASP.Controllers
         {
             var repairedModel = await _context.RepairedModels.FindAsync(id);
             _context.RepairedModels.Remove(repairedModel);
-            await _context.SaveChangesAsync();
+            await Task.Run(() =>
+            {
+                _context.SaveChangesAsync();
+                _cachingModel.RefreshCache(KEY_CACHE);
+            });
             return RedirectToAction(nameof(Index));
         }
 

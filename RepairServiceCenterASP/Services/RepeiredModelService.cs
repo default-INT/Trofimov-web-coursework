@@ -21,6 +21,29 @@ namespace RepairServiceCenterASP.Services
             cache = memoryCache;
         }
 
+        public bool EditCache(RepairedModel entity)
+        {
+            try
+            {
+                var model = db.RepairedModels.Where(m => m.RepairedModelId == entity.RepairedModelId)
+                                 .FirstOrDefault();
+                if (model != null)
+                {
+                    model = entity;
+                    cache.Set(entity.RepairedModelId, entity, new MemoryCacheEntryOptions
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(SECONDS)
+                    });
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool CreateCache(RepairedModel entity)
         {
             try
@@ -69,6 +92,13 @@ namespace RepairServiceCenterASP.Services
                 }
             }
             return repairedModels;
+        }
+
+        public void RefreshCache(string cacheKey)
+        {
+            var repairedModels = db.RepairedModels.Take(rowsNumber).ToList();
+            cache.Set(cacheKey, repairedModels,
+                        new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(SECONDS)));
         }
     }
 }

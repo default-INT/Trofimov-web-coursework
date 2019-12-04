@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RepairServiceCenterASP.Models
 {
+    [Display(Name = "Обслуживаемый магазин")]
     public class ServicedStore
     {
         [Display(Name = "Код")]

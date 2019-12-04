@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RepairServiceCenterASP.Models
 {
+    [Display(Name = "Тип повреждения")]
     public class TypeOfFault
     {
         [Display(Name = "Код")]

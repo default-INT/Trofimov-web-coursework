@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Удаление</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Вы действительно хотите удалить магазин "@Model.Name"?</h3>
 <div>
     <h4>ServicedStore</h4>
     <hr />
@@ -34,7 +34,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="ServicedStoreId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-action="Index">Вернуться назад</a>
     </form>
 </div>

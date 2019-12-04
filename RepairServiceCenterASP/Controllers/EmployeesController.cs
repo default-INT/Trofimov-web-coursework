@@ -65,7 +65,7 @@ namespace RepairServiceCenterASP.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "PostId", employee.PostId);
+            ViewData["PostId"] = new SelectList(_context.Posts, "PostId", "Name", employee.PostId);
             return View(employee);
         }
 

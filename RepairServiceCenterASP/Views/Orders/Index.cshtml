@@ -51,10 +51,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateOrder)
+                    @item.DateOrder.ToShortDateString()
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ReturnDate)
+                    @item.DateOrder.ToShortDateString()
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FullNameCustumer)

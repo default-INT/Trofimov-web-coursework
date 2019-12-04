@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RepairServiceCenterASP.Models
 {
+    [Display(Name = "Запчасть")]
     public class SparePart
     {
         [Display(Name = "Код")]
@@ -15,15 +16,15 @@ namespace RepairServiceCenterASP.Models
         public string Functions { get; set; }
         [Display(Name = "Стоимость")]
         public double? Price { get; set; }
-        [Display(Name = "Id ремонтируемой модели")]
+        [Display(Name = "Ремонтируемая модель")]
         public int? RepairedModelId { get; set; }
 
         [Display(Name = "Ремонтируемая модель")]
         public RepairedModel RepairedModel { get; set; }
 
-        [Display(Name = "Id повреждения")]
+        [Display(Name = "Вид неисправности")]
         public int TypeOfFaultId { get; set; }
-        [Display(Name = "Типы повреждений")]
+        [Display(Name = "Вид неисправности")]
         public TypeOfFault TypeOfFault { get; set; }
     }
 }

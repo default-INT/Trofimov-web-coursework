@@ -5,23 +5,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Подробности</h2>
 
 <div>
-    <h4>Order</h4>
+    <h4>Заказ @Model.DateOrder.ToLongDateString()</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.DateOrder)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DateOrder)
+            @Html.DisplayFor(model => model.DateOrder.ToLongTimeString())
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ReturnDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ReturnDate)
+            @Html.DisplayFor(model => model.ReturnDate.ToLongTimeString())
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.FullNameCustumer)
@@ -33,7 +33,14 @@
             @Html.DisplayNameFor(model => model.GuaranteeMark)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.GuaranteeMark)
+            @if ((bool)Model.GuaranteeMark)
+            {
+                <span>Имеется</span>
+            }
+            else
+            {
+                <span>Отсутствует</span>
+            }
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.GuaranteePeriod)
@@ -51,29 +58,29 @@
             @Html.DisplayNameFor(model => model.RepairedModel)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.RepairedModel.RepairedModelId)
+            @Html.DisplayFor(model => model.RepairedModel.Name)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.TypeOfFault)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.TypeOfFault.TypeOfFaultId)
+            @Html.DisplayFor(model => model.TypeOfFault.Name)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ServicedStore)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ServicedStore.ServicedStoreId)
+            @Html.DisplayFor(model => model.ServicedStore.Name)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Employee)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Employee.EmployeeId)
+            @Html.DisplayFor(model => model.Employee.FullName)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.OrderId">Редактировать</a> |
+    <a asp-action="Index">Вернуться назад</a>
 </div>

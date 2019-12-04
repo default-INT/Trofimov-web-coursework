@@ -1,13 +1,13 @@
 ﻿@model RepairServiceCenterASP.Models.RepairedModel
 
 @{
-    ViewData["Title"] = "Edit";
-    
+    ViewData["Title"] = "Редактирование";
+
 }
 
-<h2>Edit</h2>
+<h2>Редактирование</h2>
 
-<h4>RepairedModel</h4>
+<h4>Оборудывание "@Model.Name"</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -40,14 +40,14 @@
                 <span asp-validation-for="Features" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Сохранить" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Вернуться назад</a>
 </div>
 
 @section Scripts {

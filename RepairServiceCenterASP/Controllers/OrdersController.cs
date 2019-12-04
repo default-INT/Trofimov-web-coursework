@@ -26,9 +26,9 @@ namespace RepairServiceCenterASP.Controllers
             int pageSize = 20;
 
             var source = _context.Orders.Include(o => o.Employee)
-                                                            .Include(o => o.RepairedModel)
-                                                            .Include(o => o.ServicedStore)
-                                                            .Include(o => o.TypeOfFault);
+                                        .Include(o => o.RepairedModel)
+                                        .Include(o => o.ServicedStore)
+                                        .Include(o => o.TypeOfFault);
 
             int count = await source.CountAsync();
             var items = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
@@ -80,8 +80,11 @@ namespace RepairServiceCenterASP.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OrderId,DateOrder,ReturnDate,FullNameCustumer,RepairedModelId," +
-            "TypeOfFaultId,ServicedStoreId,GuaranteeMark,GuaranteePeriod,Price,EmployeeId")] Order order)
+            "TypeOfFaultId,ServicedStoreId,GuaranteeMark,GuaranteePeriod,EmployeeId")] Order order)
         {
+            order.Price = (double)_context.TypeOfFaults.Where(t => t.TypeOfFaultId == order.TypeOfFaultId)
+                                               .Select(t => t.WorkPrice)
+                                               .FirstOrDefault();
             if (ModelState.IsValid)
             {
                 _context.Add(order);
@@ -121,7 +124,7 @@ namespace RepairServiceCenterASP.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("OrderId,DateOrder,ReturnDate,FullNameCustumer," +
-            "RepairedModelId,TypeOfFaultId,ServicedStoreId,GuaranteeMark,GuaranteePeriod,Price,EmployeeId")] Order order)
+            "RepairedModelId,TypeOfFaultId,ServicedStoreId,GuaranteeMark,GuaranteePeriod,EmployeeId")] Order order)
         {
             if (id != order.OrderId)
             {
@@ -132,6 +135,9 @@ namespace RepairServiceCenterASP.Controllers
             {
                 try
                 {
+                    order.Price = (double)_context.TypeOfFaults.Where(t => t.TypeOfFaultId == order.TypeOfFaultId)
+                                               .Select(t => t.WorkPrice)
+                                               .FirstOrDefault();
                     _context.Update(order);
                     await _context.SaveChangesAsync();
                 }

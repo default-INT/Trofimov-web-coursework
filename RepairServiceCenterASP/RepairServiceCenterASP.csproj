@@ -25,10 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Home\About.cshtml" />
-    <None Include="Views\Home\Contact.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
-    <None Include="Views\Home\Privacy.cshtml" />
     <None Include="Views\RepairedModels\Create.cshtml" />
     <None Include="Views\RepairedModels\Delete.cshtml" />
     <None Include="Views\RepairedModels\Details.cshtml" />

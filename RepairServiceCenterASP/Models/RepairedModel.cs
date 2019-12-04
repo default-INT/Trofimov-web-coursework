@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RepairServiceCenterASP.Models
 {
+    [Display(Name = "Ремонтируемая модель")]
     public class RepairedModel
     {
         [Display(Name = "Ремонтируемая модель")]
