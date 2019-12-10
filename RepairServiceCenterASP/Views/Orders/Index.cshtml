@@ -14,20 +14,22 @@
     <div class="form-inline">
         <label class="control-label">Дата заказа: </label>
         <input name="dateOrder" class="form-control" type="date" value="@Model.OrdersFilter.SelectedDateOrder" />
-
+        <br>
         <label class="control-label">Имя заказчика: </label>
         @Html.TextBox("fullNameCust", Model.OrdersFilter.InputFullNameCust, htmlAttributes: new { @class = "form-control" })
-
+        <br>
         <label class="control-label">Сотрудник: </label>
         @Html.DropDownList("employee", Model.OrdersFilter.Employees as SelectList,
                 htmlAttributes: new { @class = "form-control" })
-
+        <br>
         <label class="control-label">Гарантия: </label>
-        @Html.CheckBox("guarantee", false, htmlAttributes: new { @class = "form-control"})
-
-        <input type="submit" value="Фильтр" class="btn btn-default" />
+        @Html.CheckBox("guarantee", false, htmlAttributes: new { @class = "form-control" })
+        <br>
+        <input type="submit" value="Поиск" class="btn btn-default" />
+        
     </div>
 </form>
+<hr />
 <table class="table">
     <thead>
         <tr>

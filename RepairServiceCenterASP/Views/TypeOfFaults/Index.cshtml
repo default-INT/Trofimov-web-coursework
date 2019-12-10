@@ -1,4 +1,5 @@
-﻿@model IEnumerable<RepairServiceCenterASP.Models.TypeOfFault>
+﻿@using RepairServiceCenterASP.ViewModels
+@model TypeOfFaultsViewModel
 
 @{
 }
@@ -12,50 +13,118 @@
 </head>
 <body>
     <h2>Виды неисправностей</h2>
-<p>
-    <a asp-action="Create">Добавить</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MethodRepair)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WorkPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RepairedModel.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MethodRepair)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WorkPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RepairedModel.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TypeOfFaultId">Редактировать</a> |
-                <a asp-action="Details" asp-route-id="@item.TypeOfFaultId">Детали</a> |
-                <a asp-action="Delete" asp-route-id="@item.TypeOfFaultId">Удалить</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <p>
+        <a asp-action="Create">Добавить</a>
+    </p>
+    <form method="get">
+        <div class="form-inline">
+
+            <label class="control-label">Ремонтируемые модели: </label>
+            @Html.DropDownList("model", Model.TypesOfFaultsFilter.Models as SelectList,
+                    htmlAttributes: new { @class = "form-control" })
+            <br>
+            <label class="control-label">Метод ремонта: </label>
+            @Html.TextBox("methodRepair", Model.TypesOfFaultsFilter.InputMethodRepair, htmlAttributes: new { @class = "form-control" })
+            <br>
+            <label class="control-label">Наименование неисправности: </label>
+            @Html.TextBox("name", Model.TypesOfFaultsFilter.InputName, htmlAttributes: new { @class = "form-control" })
+            <br>
+            <label class="control-label">Имя заказчика: </label>
+            @Html.TextBox("client", Model.TypesOfFaultsFilter.InputClient, htmlAttributes: new { @class = "form-control" })
+            <br>
+            <input type="submit" value="Поиск" class="btn btn-default" />
+
+        </div>
+    </form>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@Model.TypesOfFaultsSort.NameSort"
+                       asp-route-model="@Model.TypesOfFaultsFilter.SelectedModel"
+                       asp-route-methodRepair="@Model.TypesOfFaultsFilter.InputMethodRepair"
+                       asp-route-name="@Model.TypesOfFaultsFilter.InputName"
+                       asp-route-client="@Model.TypesOfFaultsFilter.InputClient">
+                        @Html.DisplayNameFor(model => model.TypeOfFaults.FirstOrDefault().Name)
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@Model.TypesOfFaultsSort.MethodRepairSort"
+                       asp-route-model="@Model.TypesOfFaultsFilter.SelectedModel"
+                       asp-route-methodRepair="@Model.TypesOfFaultsFilter.InputMethodRepair"
+                       asp-route-name="@Model.TypesOfFaultsFilter.InputName"
+                       asp-route-client="@Model.TypesOfFaultsFilter.InputClient">
+                        @Html.DisplayNameFor(model => model.TypeOfFaults.FirstOrDefault().MethodRepair)
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@Model.TypesOfFaultsSort.WorkPriceSort"
+                       asp-route-model="@Model.TypesOfFaultsFilter.SelectedModel"
+                       asp-route-methodRepair="@Model.TypesOfFaultsFilter.InputMethodRepair"
+                       asp-route-name="@Model.TypesOfFaultsFilter.InputName"
+                       asp-route-client="@Model.TypesOfFaultsFilter.InputClient">
+                        @Html.DisplayNameFor(model => model.TypeOfFaults.FirstOrDefault().WorkPrice)
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@Model.TypesOfFaultsSort.NameSort"
+                       asp-route-model="@Model.TypesOfFaultsFilter.SelectedModel"
+                       asp-route-methodRepair="@Model.TypesOfFaultsFilter.InputMethodRepair"
+                       asp-route-name="@Model.TypesOfFaultsFilter.InputName"
+                       asp-route-client="@Model.TypesOfFaultsFilter.InputClient">
+                        @Html.DisplayNameFor(model => model.TypeOfFaults.FirstOrDefault().RepairedModel.Name)
+                    </a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.TypeOfFaults)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MethodRepair)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RepairedModel.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.TypeOfFaultId">Редактировать</a> |
+                        <a asp-action="Details" asp-route-id="@item.TypeOfFaultId">Детали</a> |
+                        <a asp-action="Delete" asp-route-id="@item.TypeOfFaultId">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           class="btn btn-default btn">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Назад
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           class="btn btn-default btn">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
 </body>
 </html>

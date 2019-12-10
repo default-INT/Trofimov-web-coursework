@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RepairServiceCenterASP.Data;
 using RepairServiceCenterASP.Models;
+using RepairServiceCenterASP.ViewModels;
+using RepairServiceCenterASP.ViewModels.Filters;
+using RepairServiceCenterASP.ViewModels.Sortings;
 
 namespace RepairServiceCenterASP.Controllers
 {
@@ -20,10 +23,51 @@ namespace RepairServiceCenterASP.Controllers
         }
 
         // GET: TypeOfFaults
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? model, string name, string methodRepair, string client,
+            int page = 1, TypeOfFault.SortState sortOrder = TypeOfFault.SortState.NameAsc)
         {
-            var repairServiceCenterContext = _context.TypeOfFaults.Include(t => t.RepairedModel);
-            return View(await repairServiceCenterContext.ToListAsync());
+            int pageSize = 20;
+
+            IQueryable<TypeOfFault> source = _context.TypeOfFaults.Include(t => t.RepairedModel);
+
+            if (model != null)
+                source = source.Where(t => t.RepairedModel.RepairedModelId == model.Value);
+
+            if (!String.IsNullOrEmpty(name))
+                source = source.Where(t => t.Name.Contains(name));
+
+            if (!String.IsNullOrEmpty(methodRepair))
+                source = source.Where(t => t.MethodRepair.Contains(methodRepair));
+            
+            if (!String.IsNullOrEmpty(client))
+            {
+                source = _context.Orders.Include(o => o.TypeOfFault)
+                                        .Include(o => o.RepairedModel)
+                                        .Where(o => o.FullNameCustumer.Contains(client))
+                                        .Select(o => new TypeOfFault()
+                                        {
+                                            Name = o.TypeOfFault.Name,
+                                            RepairedModelId = o.RepairedModelId.Value,
+                                            RepairedModel = o.RepairedModel,
+                                            MethodRepair = o.TypeOfFault.MethodRepair
+                                        });
+            }
+
+            source = TypesOfFaultsSort(source, sortOrder);
+
+            int count = await source.CountAsync();
+            var items = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var models = await _context.RepairedModels.ToListAsync();
+
+            var viewModel = new TypeOfFaultsViewModel()
+            {
+                TypeOfFaults = items,
+                TypesOfFaultsFilter = new TypesOfFaultsFilter(models, model, name, methodRepair, client),
+                TypesOfFaultsSort = new TypesOfFaultsSort(sortOrder),
+                PageViewModel = new PageViewModel(count, page, pageSize)
+            };
+
+            return View(viewModel);
         }
 
         // GET: TypeOfFaults/Details/5
@@ -155,6 +199,40 @@ namespace RepairServiceCenterASP.Controllers
         private bool TypeOfFaultExists(int id)
         {
             return _context.TypeOfFaults.Any(e => e.TypeOfFaultId == id);
+        }
+
+        private IQueryable<TypeOfFault> TypesOfFaultsSort(IQueryable<TypeOfFault> typesOfFaults, TypeOfFault.SortState sortOrder)
+        {
+            switch (sortOrder)
+            {
+                case TypeOfFault.SortState.NameAsc:
+                    return typesOfFaults.OrderBy(t => t.Name);
+
+                case TypeOfFault.SortState.NameDesc:
+
+                    return typesOfFaults.OrderByDescending(t => t.Name);
+
+                case TypeOfFault.SortState.RepairedModelAsc:
+                    return typesOfFaults.OrderBy(t => t.RepairedModel.Name);
+
+                case TypeOfFault.SortState.RepairedModelDesc:
+                    return typesOfFaults.OrderByDescending(t => t.RepairedModel.Name);
+
+                case TypeOfFault.SortState.MethodRepairAsc:
+                    return typesOfFaults.OrderBy(t => t.MethodRepair);
+
+                case TypeOfFault.SortState.MethodRepairDesc:
+                    return typesOfFaults.OrderByDescending(t => t.MethodRepair);
+
+                case TypeOfFault.SortState.WorkPriceAsc:
+                    return typesOfFaults.OrderBy(t => t.WorkPrice);
+
+                case TypeOfFault.SortState.WorkPriceDesc:
+                    return typesOfFaults.OrderByDescending(t => t.WorkPrice);
+
+                default:
+                    return typesOfFaults.OrderBy(t => t.Name);
+            }
         }
     }
 }

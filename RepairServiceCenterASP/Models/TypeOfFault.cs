@@ -7,6 +7,14 @@ namespace RepairServiceCenterASP.Models
     [Display(Name = "Тип повреждения")]
     public class TypeOfFault
     {
+        public enum SortState
+        {
+            RepairedModelAsc, RepairedModelDesc,
+            NameAsc, NameDesc,
+            MethodRepairAsc, MethodRepairDesc,
+            WorkPriceAsc, WorkPriceDesc
+        }
+
         [Display(Name = "Код")]
         public int TypeOfFaultId { get; set; }
         [Display(Name = "Ремонтируемая модель")]
