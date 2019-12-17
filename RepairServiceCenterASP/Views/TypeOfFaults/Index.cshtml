@@ -16,7 +16,7 @@
     <p>
         <a asp-action="Create">Добавить</a>
     </p>
-    <form method="get">
+    <form method="get" class="filter-form">
         <div class="form-inline">
 
             <label class="control-label">Ремонтируемые модели: </label>
@@ -47,6 +47,14 @@
                        asp-route-methodRepair="@Model.TypesOfFaultsFilter.InputMethodRepair"
                        asp-route-name="@Model.TypesOfFaultsFilter.InputName"
                        asp-route-client="@Model.TypesOfFaultsFilter.InputClient">
+                        @if (Model.TypesOfFaultsSort.Current == TypeOfFault.SortState.NameAsc)
+                        {
+                            <b>↑</b>
+                        }
+                        else if (Model.TypesOfFaultsSort.Current == TypeOfFault.SortState.NameDesc)
+                        {
+                            <b>↓</b>
+                        }
                         @Html.DisplayNameFor(model => model.TypeOfFaults.FirstOrDefault().Name)
                     </a>
                 </th>
@@ -57,6 +65,14 @@
                        asp-route-methodRepair="@Model.TypesOfFaultsFilter.InputMethodRepair"
                        asp-route-name="@Model.TypesOfFaultsFilter.InputName"
                        asp-route-client="@Model.TypesOfFaultsFilter.InputClient">
+                        @if (Model.TypesOfFaultsSort.Current == TypeOfFault.SortState.MethodRepairAsc)
+                        {
+                            <b>↑</b>
+                        }
+                        else if (Model.TypesOfFaultsSort.Current == TypeOfFault.SortState.MethodRepairDesc)
+                        {
+                            <b>↓</b>
+                        }
                         @Html.DisplayNameFor(model => model.TypeOfFaults.FirstOrDefault().MethodRepair)
                     </a>
                 </th>
@@ -67,16 +83,32 @@
                        asp-route-methodRepair="@Model.TypesOfFaultsFilter.InputMethodRepair"
                        asp-route-name="@Model.TypesOfFaultsFilter.InputName"
                        asp-route-client="@Model.TypesOfFaultsFilter.InputClient">
+                        @if (Model.TypesOfFaultsSort.Current == TypeOfFault.SortState.WorkPriceAsc)
+                        {
+                            <b>↑</b>
+                        }
+                        else if (Model.TypesOfFaultsSort.Current == TypeOfFault.SortState.WorkPriceDesc)
+                        {
+                            <b>↓</b>
+                        }
                         @Html.DisplayNameFor(model => model.TypeOfFaults.FirstOrDefault().WorkPrice)
                     </a>
                 </th>
                 <th>
                     <a asp-action="Index"
-                       asp-route-sortOrder="@Model.TypesOfFaultsSort.NameSort"
+                       asp-route-sortOrder="@Model.TypesOfFaultsSort.RepairedModelSort"
                        asp-route-model="@Model.TypesOfFaultsFilter.SelectedModel"
                        asp-route-methodRepair="@Model.TypesOfFaultsFilter.InputMethodRepair"
                        asp-route-name="@Model.TypesOfFaultsFilter.InputName"
                        asp-route-client="@Model.TypesOfFaultsFilter.InputClient">
+                        @if (Model.TypesOfFaultsSort.Current == TypeOfFault.SortState.RepairedModelAsc)
+                        {
+                            <b>↑</b>
+                        }
+                        else if (Model.TypesOfFaultsSort.Current == TypeOfFault.SortState.RepairedModelDesc)
+                        {
+                            <b>↓</b>
+                        }
                         @Html.DisplayNameFor(model => model.TypeOfFaults.FirstOrDefault().RepairedModel.Name)
                     </a>
                 </th>
@@ -94,7 +126,7 @@
                         @Html.DisplayFor(modelItem => item.MethodRepair)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.WorkPrice)
+                        @Math.Round(item.WorkPrice.Value, 2)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.RepairedModel.Name)

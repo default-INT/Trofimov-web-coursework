@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RepairServiceCenterASP.Models
@@ -26,10 +25,10 @@ namespace RepairServiceCenterASP.Models
         [Display(Name = "Цена работы")]
         public double? WorkPrice { get; set; }
 
-        public RepairedModel RepairedModel { get; set; }
-        public IEnumerable<SparePart> SpareParts { get; set; }
+        public virtual RepairedModel RepairedModel { get; set; }
+        public virtual IEnumerable<SparePart> SpareParts { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
         public TypeOfFault()
         {

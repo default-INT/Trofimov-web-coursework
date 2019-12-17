@@ -1,4 +1,5 @@
-﻿@model IEnumerable<RepairServiceCenterASP.Models.RepairedModel>
+﻿@using RepairServiceCenterASP.ViewModels
+@model RepairedViewModels
 
 @{
     ViewData["Title"] = "Index";
@@ -13,47 +14,66 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.RepairedModels.FirstOrDefault().Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
+                @Html.DisplayNameFor(model => model.RepairedModels.FirstOrDefault().Type)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Manufacturer)
+                @Html.DisplayNameFor(model => model.RepairedModels.FirstOrDefault().Manufacturer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TechSpecification)
+                @Html.DisplayNameFor(model => model.RepairedModels.FirstOrDefault().TechSpecification)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Features)
+                @Html.DisplayNameFor(model => model.RepairedModels.FirstOrDefault().Features)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manufacturer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TechSpecification)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Features)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RepairedModelId">Редактировать</a> |
-                <a asp-action="Details" asp-route-id="@item.RepairedModelId">Детали</a> |
-                <a asp-action="Delete" asp-route-id="@item.RepairedModelId">Удалить</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.RepairedModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manufacturer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TechSpecification)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Features)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.RepairedModelId">Редактировать</a> |
+                    <a asp-action="Details" asp-route-id="@item.RepairedModelId">Детали</a> |
+                    <a asp-action="Delete" asp-route-id="@item.RepairedModelId">Удалить</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-default btn">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-default btn">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

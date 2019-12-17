@@ -20,8 +20,8 @@ namespace RepairServiceCenterASP.Models
         [Display(Name = "Особенности")]
         public string Features { get; set; }
 
-        public ICollection<SparePart> SpareParts { get; set; }
-        public ICollection<Order> Orders { get; set; }
+        public virtual ICollection<SparePart> SpareParts { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
         public RepairedModel()
         {

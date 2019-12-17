@@ -15,13 +15,13 @@
             @Html.DisplayNameFor(model => model.DateOrder)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DateOrder.ToLongTimeString())
+            @Model.DateOrder.ToLongDateString()
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ReturnDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ReturnDate.ToLongTimeString())
+            @Model.ReturnDate.ToLongDateString()
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.FullNameCustumer)
@@ -52,7 +52,7 @@
             @Html.DisplayNameFor(model => model.Price)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            @Math.Round(Model.Price, 2)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.RepairedModel)

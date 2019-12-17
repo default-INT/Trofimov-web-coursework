@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RepairServiceCenterASP.Models
@@ -7,6 +6,13 @@ namespace RepairServiceCenterASP.Models
     [Display(Name = "Сотрудник")]
     public class Employee
     {
+        public enum SortState
+        {
+            FullNameAsc, FullNameDesc,
+            ExperienceAsc, ExperienceDesc,
+            PostAsc, PostDesc
+        }
+
         [Display(Name = "Код")]
         public int EmployeeId { get; set; }
         [Display(Name = "ФИО")]
@@ -17,8 +23,8 @@ namespace RepairServiceCenterASP.Models
         public int? PostId { get; set; }
 
         [Display(Name = "Должность")]
-        public Post Post { get; set; }
-        public ICollection<Order> Orders { get; set; }
+        public virtual Post Post { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
         public Employee()
         {

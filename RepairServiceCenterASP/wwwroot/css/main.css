@@ -1,0 +1,24 @@
+﻿.filter-form .form-inline * {
+    margin-top: 10px;
+}
+
+.filter-form .form-inline label {
+    width: 150px;
+}
+
+th a {
+    font-size: 15px;
+    color: black;
+    transform: scaleY(1);
+    transform-origin: 0 0;
+    transition: .5s ease-in-out;
+}
+
+th a:hover {
+    font-size: 17px;
+    text-decoration: none;
+}
+
+#GuaranteeMark {
+    width: 40px;
+}

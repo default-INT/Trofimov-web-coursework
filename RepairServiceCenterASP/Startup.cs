@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RepairServiceCenterASP.Data;
@@ -29,11 +22,11 @@ namespace RepairServiceCenterASP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = Configuration.GetConnectionString("SqlLiteConnection");
-            services.AddDbContext<RepairServiceCenterContext>(options => options.UseSqlite(connection));
+            string connection = Configuration.GetConnectionString("SqlMiniConnection");
+            services.AddDbContext<RepairServiceCenterContext>(options => options.UseSqlServer(connection));
             services.AddMemoryCache();
             services.AddSession();
-            services.AddTransient<ICachingModel<RepairedModel>, RepeiredModelService>();
+            services.AddTransient<ICachingModel<RepairedModel>, RepairedModelService>();
             services.AddMvc();
         }
 

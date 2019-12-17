@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RepairServiceCenterASP.Models
 {
@@ -20,11 +17,11 @@ namespace RepairServiceCenterASP.Models
         public int? RepairedModelId { get; set; }
 
         [Display(Name = "Ремонтируемая модель")]
-        public RepairedModel RepairedModel { get; set; }
+        public virtual RepairedModel RepairedModel { get; set; }
 
         [Display(Name = "Вид неисправности")]
         public int TypeOfFaultId { get; set; }
         [Display(Name = "Вид неисправности")]
-        public TypeOfFault TypeOfFault { get; set; }
+        public virtual TypeOfFault TypeOfFault { get; set; }
     }
 }

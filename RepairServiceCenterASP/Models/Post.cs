@@ -13,7 +13,7 @@ namespace RepairServiceCenterASP.Models
         [Display(Name = "Зарплата")]
         public double? Money { get; set; }
 
-        public ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
 
         public Post()
         {

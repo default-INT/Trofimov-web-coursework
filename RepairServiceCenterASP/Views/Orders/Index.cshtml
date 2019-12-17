@@ -10,7 +10,7 @@
 <p>
     <a asp-action="Create">Добавить новый заказ</a>
 </p>
-<form method="get">
+<form method="get" class="filter-form">
     <div class="form-inline">
         <label class="control-label">Дата заказа: </label>
         <input name="dateOrder" class="form-control" type="date" value="@Model.OrdersFilter.SelectedDateOrder" />
@@ -40,6 +40,14 @@
                    asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
                    asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
                    asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @if (Model.OrdersSort.Current == Order.SortState.DateOrderAsc)
+                    {
+                        <b>↑</b>
+                    }
+                    else if (Model.OrdersSort.Current == Order.SortState.DateOrderDesc)
+                    {
+                        <b>↓</b>
+                    }
                     @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().DateOrder)
                 </a>
             </th>
@@ -50,6 +58,14 @@
                    asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
                    asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
                    asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @if (Model.OrdersSort.Current == Order.SortState.ReturnDateAsc)
+                    {
+                        <b>↑</b>
+                    }
+                    else if (Model.OrdersSort.Current == Order.SortState.ReturnDateDesc)
+                    {
+                        <b>↓</b>
+                    }
                     @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().ReturnDate)
                 </a>
             </th>
@@ -60,6 +76,14 @@
                    asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
                    asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
                    asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @if (Model.OrdersSort.Current == Order.SortState.FullNameCustAsc)
+                    {
+                        <b>↑</b>
+                    }
+                    else if (Model.OrdersSort.Current == Order.SortState.FullNameCustDesc)
+                    {
+                        <b>↓</b>
+                    }
                     @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().FullNameCustumer)
                 </a>
             </th>
@@ -70,8 +94,17 @@
                    asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
                    asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
                    asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @if (Model.OrdersSort.Current == Order.SortState.GuaranteeMarkAsc)
+                    {
+                        <b>↑</b>
+                    }
+                    else if (Model.OrdersSort.Current == Order.SortState.GuaranteeMarkDesc)
+                    {
+                        <b>↓</b>
+                    }
                     @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().GuaranteeMark)
                 </a>
+                
             </th>
             <th>
                 <a asp-action="Index"
@@ -80,6 +113,14 @@
                    asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
                    asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
                    asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @if (Model.OrdersSort.Current == Order.SortState.GuaranteePeriodAsc)
+                    {
+                        <b>↑</b>
+                    }
+                    else if (Model.OrdersSort.Current == Order.SortState.GuaranteePeriodDesc)
+                    {
+                        <b>↓</b>
+                    }
                     @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().GuaranteePeriod)
                 </a>
             </th>
@@ -90,6 +131,14 @@
                    asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
                    asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
                    asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @if (Model.OrdersSort.Current == Order.SortState.PriceAsc)
+                    {
+                        <b>↑</b>
+                    }
+                    else if (Model.OrdersSort.Current == Order.SortState.PriceDesc)
+                    {
+                        <b>↓</b>
+                    }
                     @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().Price)
                 </a>
             </th>
@@ -100,6 +149,14 @@
                    asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
                    asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
                    asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @if (Model.OrdersSort.Current == Order.SortState.RepModelAsc)
+                    {
+                        <b>↑</b>
+                    }
+                    else if (Model.OrdersSort.Current == Order.SortState.RepModelDesc)
+                    {
+                        <b>↓</b>
+                    }
                     Ремонтируемое оборудывание
                 </a>
 </th>
@@ -110,6 +167,14 @@
                    asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
                    asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
                    asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @if (Model.OrdersSort.Current == Order.SortState.TypeOfFaultAsc)
+                    {
+                        <b>↑</b>
+                    }
+                    else if (Model.OrdersSort.Current == Order.SortState.TypeOfFaultDesc)
+                    {
+                        <b>↓</b>
+                    }
                     @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().TypeOfFault)
                 </a>
             </th>
@@ -120,6 +185,14 @@
                    asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
                    asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
                    asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @if (Model.OrdersSort.Current == Order.SortState.ServiceStoreAsc)
+                    {
+                        <b>↑</b>
+                    }
+                    else if (Model.OrdersSort.Current == Order.SortState.ServiceStoreDesc)
+                    {
+                        <b>↓</b>
+                    }
                     @Html.DisplayNameFor(model => model.Orders.FirstOrDefault().ServicedStore)
                 </a>
             </th>
@@ -130,6 +203,14 @@
                    asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
                    asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
                    asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee">
+                    @if (Model.OrdersSort.Current == Order.SortState.EmployeeAsc)
+                    {
+                        <b>↑</b>
+                    }
+                    else if (Model.OrdersSort.Current == Order.SortState.EmployeeDesc)
+                    {
+                        <b>↓</b>
+                    }
                     Сотрудник
                 </a>
             </th>

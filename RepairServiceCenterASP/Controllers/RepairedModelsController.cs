@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RepairServiceCenterASP.Data;
 using RepairServiceCenterASP.Models;
 using RepairServiceCenterASP.Services;
+using RepairServiceCenterASP.ViewModels;
 
 namespace RepairServiceCenterASP.Controllers
 {
@@ -29,11 +27,17 @@ namespace RepairServiceCenterASP.Controllers
         [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 300)]
         public IActionResult Index(int page = 1)
         {
+            int pageSize = 10;
             // Разбиение на страницы
             var count = _cachingModel.ReadAllCache(KEY_CACHE).Count();
-            var rModels = _cachingModel.ReadAllCache(KEY_CACHE);
+            var rModels = _cachingModel.ReadAllCache(KEY_CACHE, count, page, pageSize);
 
-            return View(rModels);
+            RepairedViewModels viewModels = new RepairedViewModels()
+            {
+                RepairedModels = rModels,
+                PageViewModel = new PageViewModel(count, page, pageSize)
+            };
+            return View(viewModels);
         }
 
         // GET: RepairedModels/Details/5

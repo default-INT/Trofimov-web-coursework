@@ -29,7 +29,7 @@
                 @Html.DisplayFor(model => model.MethodRepair)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.WorkPrice)
+                @Math.Round(Model.WorkPrice.Value, 2)
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.WorkPrice)

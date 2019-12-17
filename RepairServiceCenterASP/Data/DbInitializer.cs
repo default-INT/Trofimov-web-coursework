@@ -1,8 +1,6 @@
 ﻿using RepairServiceCenterASP.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace RepairServiceCenterASP.Data
 {
@@ -14,11 +12,11 @@ namespace RepairServiceCenterASP.Data
         {
             db.Database.EnsureCreated();
             
-            int repairedModelsNumber = 35;
-            int sparePartsNumber = 200;
-            int typeOfFaultsNumber = 35;
-            int serviceStoreNumber = 40;
-            int countOrders = 300;
+            int repairedModelsNumber = 100;
+            int sparePartsNumber = 500;
+            int typeOfFaultsNumber = 100;
+            int serviceStoreNumber = 100;
+            int countOrders = 100;
 
             RepairedModelsGenerate(repairedModelsNumber, ref db);
             TypeOfFaultGeneration(typeOfFaultsNumber, repairedModelsNumber, ref db);
@@ -57,7 +55,7 @@ namespace RepairServiceCenterASP.Data
 
             for (int i = 0; i < count; i++)
             {
-                dateOrder = DateTime.Now.AddTicks(-randObj.Next());
+                dateOrder = DateTime.Now.AddDays(-randObj.Next(1000));
                 returnDate = dateOrder.AddDays(randObj.Next(1, 40));
                 fullNameCust = namesVoc[randObj.Next(namesVoc.GetLength(0))];
                 repairedModelId = randObj.Next(1, countRepairedModel - 1);
@@ -107,7 +105,7 @@ namespace RepairServiceCenterASP.Data
             });
             db.Posts.Add(new Post()
             {
-                Name = "Прогроммист",
+                Name = "Программист",
                 Money = 2000
             });
             db.Posts.Add(new Post()
@@ -274,13 +272,14 @@ namespace RepairServiceCenterASP.Data
                                   "Повреждена проводка" };
             string[] methodRepairVoc = { "Полная замена деталей", "Частичная замена", "Незначительный ремонт" };
 
+            int count = 100;
             for (int i = 0; i < num; i++)
             {
                 repairedModelId = randObj.Next(1, rModelsNum - 1);
-                name = namesVoc[randObj.Next(namesVoc.GetLength(0))];
+                name = namesVoc[randObj.Next(namesVoc.GetLength(0))] + " " + randObj.Next(1, rModelsNum - 1);
                 methodRepair = methodRepairVoc[randObj.Next(methodRepairVoc.GetLength(0))];
 
-                var repeiredModel = db.RepairedModels.Where(r => r.RepairedModelId == repairedModelId)
+                var RepairedModel = db.RepairedModels.Where(r => r.RepairedModelId == repairedModelId)
                                                      .FirstOrDefault();
                 workPrice = repairedModelId * 2 * randObj.NextDouble();
 
@@ -311,7 +310,8 @@ namespace RepairServiceCenterASP.Data
 
             string[] namesVoc = { "Дисплей-", "Процессор-", "Проводка-", "Корпус-", "Комплектующие-" };
             string[] functionVoc = { "Create", "Read", "Update", "Delete" };
-            
+
+            int count = 100;
             for (int i = 0; i < num; i++)
             {
                 name = namesVoc[randObj.Next(namesVoc.GetLength(0))] + i.ToString();

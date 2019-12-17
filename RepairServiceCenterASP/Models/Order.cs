@@ -12,7 +12,7 @@ namespace RepairServiceCenterASP.Models
             FullNameCustAsc, FullNameCustDesc,
             RepModelAsc, RepModelDesc,
             TypeOfFaultAsc, TypeOfFaultDesc,
-            ServiceStoreAsc, ServiceStroeDesc,
+            ServiceStoreAsc, ServiceStoreDesc,
             GuaranteeMarkAsc, GuaranteeMarkDesc,
             GuaranteePeriodAsc, GuaranteePeriodDesc,
             PriceAsc, PriceDesc,
@@ -42,9 +42,9 @@ namespace RepairServiceCenterASP.Models
         [Display(Name = "Сотрудник")]
         public int? EmployeeId { get; set; }
 
-        public RepairedModel RepairedModel { get; set; }
-        public TypeOfFault TypeOfFault { get; set; }
-        public ServicedStore ServicedStore { get; set; }
-        public Employee Employee { get; set; }
+        public virtual RepairedModel RepairedModel { get; set; }
+        public virtual TypeOfFault TypeOfFault { get; set; }
+        public virtual ServicedStore ServicedStore { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

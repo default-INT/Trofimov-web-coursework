@@ -1,8 +1,4 @@
 ﻿using RepairServiceCenterASP.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RepairServiceCenterASP.ViewModels.Sortings
 {
@@ -37,7 +33,7 @@ namespace RepairServiceCenterASP.ViewModels.Sortings
             TypeOfFaultSort = sortOrder == Order.SortState.TypeOfFaultAsc ? Order.SortState.TypeOfFaultDesc
                                                                           : Order.SortState.TypeOfFaultAsc;
 
-            ServicedStoreSort = sortOrder == Order.SortState.ServiceStoreAsc ? Order.SortState.ServiceStroeDesc
+            ServicedStoreSort = sortOrder == Order.SortState.ServiceStoreAsc ? Order.SortState.ServiceStoreDesc
                                                                              : Order.SortState.ServiceStoreAsc;
 
             GuaranteeMarkSort = sortOrder

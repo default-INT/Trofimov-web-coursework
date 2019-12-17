@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using RepairServiceCenterASP.Data;
 using RepairServiceCenterASP.Models;
 
 namespace RepairServiceCenterASP.Services
 {
-    public class RepeiredModelService : ICachingModel<RepairedModel>
+    public class RepairedModelService : ICachingModel<RepairedModel>
     {
         private RepairServiceCenterContext db;
         private IMemoryCache cache;
         private int rowsNumber = 50;
         private const int SECONDS = 272;
+        int pageNum;
 
-        public RepeiredModelService(RepairServiceCenterContext db, IMemoryCache memoryCache)
+        public RepairedModelService(RepairServiceCenterContext db, IMemoryCache memoryCache)
         {
             this.db = db;
             cache = memoryCache;
@@ -99,6 +99,24 @@ namespace RepairServiceCenterASP.Services
             var repairedModels = db.RepairedModels.Take(rowsNumber).ToList();
             cache.Set(cacheKey, repairedModels,
                         new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(SECONDS)));
+        }
+
+        public ICollection<RepairedModel> ReadAllCache(string cacheKey, int count, int pageNum, int pageSize)
+        {
+            if (pageNum == this.pageNum && rowsNumber < count)
+            {
+                return ReadAllCache(cacheKey).Take(count).ToList();
+            }
+            else
+            {
+                var models = db.RepairedModels.Skip((pageNum - 1) * pageSize)
+                                              .Take(rowsNumber)
+                                              .ToList();
+                cache.Set(cacheKey, models,
+                        new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(SECONDS)));
+                return models.Take(count).ToList();
+
+            }
         }
     }
 }

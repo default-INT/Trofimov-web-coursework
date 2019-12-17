@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RepairServiceCenterASP.Data;
 using RepairServiceCenterASP.Models;
+using RepairServiceCenterASP.ViewModels;
 
 namespace RepairServiceCenterASP.Controllers
 {
@@ -18,10 +19,22 @@ namespace RepairServiceCenterASP.Controllers
         }
 
         // GET: SpareParts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var repairServiceCenterContext = _context.SpareParts.Include(s => s.RepairedModel).Include(s => s.TypeOfFault);
-            return View(await repairServiceCenterContext.ToListAsync());
+            int pageSize = 10;
+            var source = _context.SpareParts.Include(s => s.RepairedModel)
+                                            .Include(s => s.TypeOfFault);
+
+            int count = await source.CountAsync();
+            var spateParts = await source.Skip((page - 1) * pageSize)
+                                         .Take(pageSize)
+                                         .ToListAsync();
+            SparePartsViewModels sparePartsViewModels = new SparePartsViewModels()
+            {
+                SpareParts = spateParts,
+                PageViewModel = new PageViewModel(count, page, pageSize)
+            };
+            return View(sparePartsViewModels);
         }
 
         // GET: SpareParts/Details/5

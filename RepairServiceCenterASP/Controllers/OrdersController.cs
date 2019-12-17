@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -22,16 +21,13 @@ namespace RepairServiceCenterASP.Controllers
             _context = context;
         }
 
-        // GET: Orders
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 300)]
         public async Task<IActionResult> Index(DateTime? dateOrder, string fullNameCust, int? employee,
             bool? guarantee, int page = 1, Order.SortState sortOrder = Order.SortState.DateOrderDesc)
         {
             int pageSize = 20;
 
-            IQueryable<Order> source = _context.Orders.Include(o => o.Employee)
-                                        .Include(o => o.RepairedModel)
-                                        .Include(o => o.ServicedStore)
-                                        .Include(o => o.TypeOfFault);
+            IQueryable<Order> source = _context.Orders;
 
             if (dateOrder != null)
                 source = source.Where(o => o.DateOrder.Year == dateOrder.Value.Year
@@ -50,14 +46,16 @@ namespace RepairServiceCenterASP.Controllers
             source = OrdersSort(source, sortOrder);
 
             int count = await source.CountAsync();
-            var items = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            source = source.Skip((page - 1) * pageSize);
+            source = source.Take(pageSize);
+            var items = await source.ToListAsync();
             var employees = await _context.Employees.ToListAsync();
 
             OrdersViewModel ordersViewModels = new OrdersViewModel()
             {
                 OrdersSort = new OrdersSort(sortOrder),
                 OrdersFilter = new OrdersFilter(dateOrder, fullNameCust, employees, employee, guarantee),
-                Orders = items,
+                Orders = source,
                 PageViewModel = new PageViewModel(count, page, pageSize)
             };
             return View(ordersViewModels);
@@ -72,11 +70,11 @@ namespace RepairServiceCenterASP.Controllers
             }
 
             var order = await _context.Orders
-                .Include(o => o.Employee)
-                .Include(o => o.RepairedModel)
-                .Include(o => o.ServicedStore)
-                .Include(o => o.TypeOfFault)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
+                                      .Include(o => o.Employee)
+                                      .Include(o => o.RepairedModel)
+                                      .Include(o => o.ServicedStore)
+                                      .Include(o => o.TypeOfFault)
+                                      .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {
                 return NotFound();

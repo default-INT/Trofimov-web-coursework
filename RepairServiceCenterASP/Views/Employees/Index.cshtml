@@ -1,4 +1,5 @@
-﻿@model IEnumerable<RepairServiceCenterASP.Models.Employee>
+﻿@using RepairServiceCenterASP.ViewModels
+@model EmployeesViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -10,39 +11,110 @@
 <p>
     <a asp-action="Create">Добавить нового сотрудника</a>
 </p>
+<form method="get" class="filter-form">
+    <div class="form-inline">
+
+        <label class="control-label">ФИО: </label>
+        @Html.TextBox("fullName", Model.EmployeesFilter.InputFullName, htmlAttributes: new { @class = "form-control" })
+        <br>
+        <label class="control-label">Опыт работы: </label>
+        @Html.TextBox("experience", Model.EmployeesFilter.InputExp, htmlAttributes: new { @class = "form-control" })
+        <br>
+        <input type="submit" value="Поиск" class="btn btn-default" />
+
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FullName)
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.EmployeesSort.FullNameSort"
+                   asp-route-fullName="@Model.EmployeesFilter.InputFullName"
+                   asp-route-experience="@Model.EmployeesFilter.InputExp">
+                    @if (Model.EmployeesSort.Current == Employee.SortState.FullNameAsc)
+                    {
+                        <b>↑</b>
+                    }
+                    else if (Model.EmployeesSort.Current == Employee.SortState.FullNameDesc)
+                    {
+                        <b>↓</b>
+                    }
+                    @Html.DisplayNameFor(model => model.Employees.FirstOrDefault().FullName)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Experience)
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.EmployeesSort.ExperienceSort"
+                   asp-route-fullName="@Model.EmployeesFilter.InputFullName"
+                   asp-route-experience="@Model.EmployeesFilter.InputExp">
+                    @if (Model.EmployeesSort.Current == Employee.SortState.ExperienceAsc)
+                    {
+                        <b>↑</b>
+                    }
+                    else if (Model.EmployeesSort.Current == Employee.SortState.ExperienceDesc)
+                    {
+                        <b>↓</b>
+                    }
+                    @Html.DisplayNameFor(model => model.Employees.FirstOrDefault().Experience)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Post)
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.EmployeesSort.PostSort"
+                   asp-route-fullName="@Model.EmployeesFilter.InputFullName"
+                   asp-route-experience="@Model.EmployeesFilter.InputExp">
+                    @if (Model.EmployeesSort.Current == Employee.SortState.PostAsc)
+                    {
+                        <b>↑</b>
+                    }
+                    else if (Model.EmployeesSort.Current == Employee.SortState.PostDesc)
+                    {
+                        <b>↓</b>
+                    }
+                    @Html.DisplayNameFor(model => model.Employees.FirstOrDefault().Post)
+                </a>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Experience)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EmployeeId">Ред.</a> |
-                <a asp-action="Details" asp-route-id="@item.EmployeeId">Детали</a> |
-                <a asp-action="Delete" asp-route-id="@item.EmployeeId">Удалить</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Employees)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Experience)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Post.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EmployeeId">Ред.</a> |
+                    <a asp-action="Details" asp-route-id="@item.EmployeeId">Детали</a> |
+                    <a asp-action="Delete" asp-route-id="@item.EmployeeId">Удалить</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       class="btn btn-default btn">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       class="btn btn-default btn">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}

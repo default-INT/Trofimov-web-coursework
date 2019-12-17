@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RepairServiceCenterASP.Data;
 using RepairServiceCenterASP.Models;
+using RepairServiceCenterASP.ViewModels;
 
 namespace RepairServiceCenterASP.Controllers
 {
@@ -20,9 +18,21 @@ namespace RepairServiceCenterASP.Controllers
         }
 
         // GET: Posts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View(await _context.Posts.ToListAsync());
+            int pageSize = 10;
+            var source = _context.Posts;
+            int count = await source.CountAsync();
+
+            var posts = await source.Skip((page - 1) * pageSize)
+                                    .Take(pageSize)
+                                    .ToListAsync();
+            PostsViewModel postsViewModel = new PostsViewModel()
+            {
+                Posts = posts,
+                PageViewModel = new PageViewModel(count, page, pageSize)
+            };
+            return View(postsViewModel);
         }
 
         // GET: Posts/Details/5

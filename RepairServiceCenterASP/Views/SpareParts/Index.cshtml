@@ -1,4 +1,5 @@
-﻿@model IEnumerable<RepairServiceCenterASP.Models.SparePart>
+﻿@using RepairServiceCenterASP.ViewModels
+@model SparePartsViewModels
 
 @{
 }
@@ -19,25 +20,25 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    @Html.DisplayNameFor(model => model.SpareParts.FirstOrDefault().Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Functions)
+                    @Html.DisplayNameFor(model => model.SpareParts.FirstOrDefault().Functions)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Price)
+                    @Html.DisplayNameFor(model => model.SpareParts.FirstOrDefault().Price)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.RepairedModel.Name)
+                    @Html.DisplayNameFor(model => model.SpareParts.FirstOrDefault().RepairedModel.Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TypeOfFault.Name)
+                    @Html.DisplayNameFor(model => model.SpareParts.FirstOrDefault().TypeOfFault.Name)
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.SpareParts)
             {
                 <tr>
                     <td>
@@ -64,5 +65,24 @@
             }
         </tbody>
     </table>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           class="btn btn-default btn">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Назад
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           class="btn btn-default btn">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+
 </body>
 </html>
