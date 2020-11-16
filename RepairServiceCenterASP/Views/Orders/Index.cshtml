@@ -272,6 +272,11 @@
 {
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-sortOrder="@Model.OrdersSort.Current"
+       asp-route-dateOrder="@Model.OrdersFilter.SelectedDateOrder"
+       asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
+       asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
+       asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee"
        class="btn btn-default btn">
         <i class="glyphicon glyphicon-chevron-left"></i>
         Назад
@@ -281,6 +286,11 @@
 {
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-sortOrder="@Model.OrdersSort.Current"
+       asp-route-dateOrder="@Model.OrdersFilter.SelectedDateOrder"
+       asp-route-fullNameCust="@Model.OrdersFilter.InputFullNameCust"
+       asp-route-employee="@Model.OrdersFilter.SelectedEmployee"
+       asp-route-guarantee="@Model.OrdersFilter.SelectedGuarantee"
        class="btn btn-default btn">
         Вперед
         <i class="glyphicon glyphicon-chevron-right"></i>

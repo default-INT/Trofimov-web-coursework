@@ -16,6 +16,10 @@
     <p>
         <a asp-action="Create">Добавить</a>
     </p>
+    @if (!string.IsNullOrEmpty(Model.TypesOfFaultsFilter.InputClient))
+    {
+        <label style="font-weight: normal" class="control-label">Все типы повреждений в заказах для клиента с именем начианющимся на "@Model.TypesOfFaultsFilter.InputClient"</label>
+    }
     <form method="get" class="filter-form">
         <div class="form-inline">
 
@@ -144,6 +148,11 @@
     {
         <a asp-action="Index"
            asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           asp-route-sortOrder="@Model.TypesOfFaultsSort.Current"
+           asp-route-model="@Model.TypesOfFaultsFilter.SelectedModel"
+           asp-route-methodRepair="@Model.TypesOfFaultsFilter.InputMethodRepair"
+           asp-route-name="@Model.TypesOfFaultsFilter.InputName"
+           asp-route-client="@Model.TypesOfFaultsFilter.InputClient"
            class="btn btn-default btn">
             <i class="glyphicon glyphicon-chevron-left"></i>
             Назад
@@ -153,6 +162,11 @@
     {
         <a asp-action="Index"
            asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           asp-route-sortOrder="@Model.TypesOfFaultsSort.Current"
+           asp-route-model="@Model.TypesOfFaultsFilter.SelectedModel"
+           asp-route-methodRepair="@Model.TypesOfFaultsFilter.InputMethodRepair"
+           asp-route-name="@Model.TypesOfFaultsFilter.InputName"
+           asp-route-client="@Model.TypesOfFaultsFilter.InputClient"
            class="btn btn-default btn">
             Вперед
             <i class="glyphicon glyphicon-chevron-right"></i>

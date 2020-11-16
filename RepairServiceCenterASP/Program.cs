@@ -12,7 +12,7 @@ namespace RepairServiceCenterASP
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://192.168.43.20:5000")
+                .UseUrls("http://127.0.0.1:5000")
                 .UseStartup<Startup>();
     }
 }

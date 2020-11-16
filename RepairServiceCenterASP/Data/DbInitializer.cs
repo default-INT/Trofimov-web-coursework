@@ -290,6 +290,11 @@ namespace RepairServiceCenterASP.Data
                     MethodRepair = methodRepair,
                     WorkPrice = workPrice
                 });
+                if (i - count == 0)
+                {
+                    db.SaveChanges();
+                    count += 100;
+                }
             }
             db.SaveChanges();
 
@@ -328,6 +333,11 @@ namespace RepairServiceCenterASP.Data
                     RepairedModelId = repairedModelId,
                     TypeOfFaultId = typeOfFaultId
                 });
+                if (i - count == 0)
+                {
+                    db.SaveChanges();
+                    count += 100;
+                }
             }
             db.SaveChanges();
         }

@@ -10,14 +10,14 @@ using RepairServiceCenterASP.Data;
 namespace RepairServiceCenterASP.Migrations
 {
     [DbContext(typeof(RepairServiceCenterContext))]
-    [Migration("20191129192923_Initial")]
+    [Migration("20191217002641_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 

@@ -104,6 +104,9 @@
 {
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-sortOrder="@Model.EmployeesSort.Current"
+        asp-route-fullName="@Model.EmployeesFilter.InputFullName"
+        asp-route-experience="@Model.EmployeesFilter.InputExp"
        class="btn btn-default btn">
         <i class="glyphicon glyphicon-chevron-left"></i>
         Назад
@@ -113,6 +116,9 @@
 {
     <a asp-action="Index"
        asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-sortOrder="@Model.EmployeesSort.Current"
+        asp-route-fullName="@Model.EmployeesFilter.InputFullName"
+        asp-route-experience="@Model.EmployeesFilter.InputExp"
        class="btn btn-default btn">
         Вперед
         <i class="glyphicon glyphicon-chevron-right"></i>

@@ -27,7 +27,11 @@ namespace RepairServiceCenterASP.Controllers
         {
             int pageSize = 20;
 
-            IQueryable<Order> source = _context.Orders;
+            IQueryable<Order> source = _context.Orders
+                                        .Include(o => o.RepairedModel)
+                                        .Include(o => o.TypeOfFault)
+                                        .Include(o => o.ServicedStore)
+                                        .Include(o => o.Employee);
 
             if (dateOrder != null)
                 source = source.Where(o => o.DateOrder.Year == dateOrder.Value.Year
@@ -46,9 +50,9 @@ namespace RepairServiceCenterASP.Controllers
             source = OrdersSort(source, sortOrder);
 
             int count = await source.CountAsync();
-            source = source.Skip((page - 1) * pageSize);
-            source = source.Take(pageSize);
-            var items = await source.ToListAsync();
+            var items = await source.Skip((page - 1) * pageSize)
+                                    .Take(pageSize)
+                                    .ToListAsync();
             var employees = await _context.Employees.ToListAsync();
 
             OrdersViewModel ordersViewModels = new OrdersViewModel()

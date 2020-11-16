@@ -29,7 +29,7 @@ namespace RepairServiceCenterASP.Controllers
 
             IQueryable<TypeOfFault> source = _context.TypeOfFaults.Include(t => t.RepairedModel);
 
-            if (model != null)
+            if (model != null && model != 0)
                 source = source.Where(t => t.RepairedModel.RepairedModelId == model.Value);
 
             if (!String.IsNullOrEmpty(name))
@@ -48,7 +48,8 @@ namespace RepairServiceCenterASP.Controllers
                                             Name = o.TypeOfFault.Name,
                                             RepairedModelId = o.RepairedModelId.Value,
                                             RepairedModel = o.RepairedModel,
-                                            MethodRepair = o.TypeOfFault.MethodRepair
+                                            MethodRepair = o.TypeOfFault.MethodRepair,
+                                            WorkPrice = o.TypeOfFault.WorkPrice
                                         });
             }
 
